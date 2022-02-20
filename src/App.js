@@ -5,10 +5,14 @@ import Canvas from './components/Canvas';
 import Sidebar from './components/Sidebar';
 
 function App() {
+  // Create a ref
+  const canvasRef = React.createRef();
+
   return (
     <div id="main" className="flex flex-row height h-screen">
-      <Canvas />
-      <Sidebar />
+      {/* Pass ref to Canvas */}
+      <Canvas ref={canvasRef}/> 
+      <Sidebar canvasRef={canvasRef}/>
     </div>
   );
 }
