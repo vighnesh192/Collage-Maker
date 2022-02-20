@@ -22,6 +22,7 @@ const Canvas = React.forwardRef((props, canvasRef) => (
     // return (
         <div id="canvas-component" className='flex flex-3 items-center bg-canvas text-white px-10 py-16'>
             {/* When the canvasRef is attached, canvasRef.current will point to <canvas/> element */}
+            {/* w-full h-full ==> Make it visually fill the positioned parent */}
             <canvas ref={canvasRef} id="canvas" className=" bg-white w-full h-full rounded shadow-xl shadow-black " />
         </div>
     // )

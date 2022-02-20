@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 function Sidebar({ canvasRef }) {
     const [images, setImages] = useState([]);
+    const [ctx, setCtx] = useState(null);
 
     const fetchImages = async () => {
         console.log("HERE")
@@ -22,18 +23,24 @@ function Sidebar({ canvasRef }) {
         .catch((err) => console.log("IMAGE FETCH ERROR:-", err)); 
     }
 
-    const draw = ctx => {
-        ctx.fillStyle = '#000000'
-        ctx.beginPath()
-        ctx.arc(50, 100, 20, 0, 2*Math.PI)
-        ctx.fill()
+    const onImageClick = (e) => {
+        console.log(e.target);
+        const image = e.target;
+        // ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(image, 50, 100, 500, 450);
+    }
+
+    const setCanvasSize = ({ canvas }) => {
+        canvas.height = canvas.offsetHeight;
+        canvas.width = canvas.offsetWidth;
     }
 
     useEffect(() => {
-        // console.log("HERRL", canvasRef.current);
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
-        draw(context);
+        // ...then set the internal size to match
+        setCanvasSize(context);
+        setCtx(context);
         fetchImages();
     }, [])
 
@@ -44,7 +51,8 @@ function Sidebar({ canvasRef }) {
                 {
                     images.map((image, index) => {
                         return  <img key={index} src={image.urls.regular} alt="img"
-                                    className='w-60 h-36 object-cover rounded' 
+                                    className='w-60 h-36 object-cover rounded cursor-pointer' 
+                                    onClick={onImageClick}
                                 />
                     })
                 }
