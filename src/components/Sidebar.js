@@ -26,13 +26,16 @@ function Sidebar({ canvasRef }) {
     const onImageClick = (e) => {
         console.log(e.target);
         const image = e.target;
-        // ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(image, 50, 100, 500, 450);
+        // Draw img at center of canvas
+        const { height, width } = ctx.canvas;
+        const dy = height/2-(image.height/2);
+        const dx = width/2-(image.width/2);
+        ctx.drawImage(image, dx, dy, image.width, image.height);
     }
 
     const setCanvasSize = ({ canvas }) => {
-        canvas.height = canvas.offsetHeight;
-        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight+50;
+        canvas.width = canvas.offsetWidth+50;
     }
 
     useEffect(() => {
